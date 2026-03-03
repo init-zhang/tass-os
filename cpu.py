@@ -1,3 +1,11 @@
+"""
+Simple 24-bit CPU. All arithmetic inaccurately take one cycle to complete.
+
+Raises VakueError on unknown opcode. Raises Exception on inaccessible memory
+or register access.
+"""
+
+
 from constants import *
 
 

@@ -1,3 +1,11 @@
+"""
+256 long integer array used to simulate memory.
+
+The OS variables `M_PROCESS_LIST`, `M_QUEUE_TAIL`, and `M_QUEUE_HEAD` are set
+here, though should be moved to OS code.
+"""
+
+
 from constants import *
 
 def init_memory():

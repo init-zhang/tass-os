@@ -1,3 +1,10 @@
+"""
+First Come, First Serve scheduler. Smallest unit is processes, not threads.
+
+All processes get one instruction on the CPU before being context switched out.
+"""
+
+
 from cpu import *
 from memory import *
 from constants import *
