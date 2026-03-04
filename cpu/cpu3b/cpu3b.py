@@ -6,8 +6,15 @@ or register access.
 """
 
 
-from constants import *
-
+# CPU registers
+C_PC = 0
+C_IR = 1
+C_MAR = 2
+C_MDR = 3
+C_ACC = 4
+C_R0 = 5
+C_R1 = 6
+C_R2 = 7
 
 # Instruction set
 # 00000000 00000000 00000000
