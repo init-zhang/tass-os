@@ -61,12 +61,3 @@ def cpu_cycle(reg, mem):
     enqueue(reg, mem)
     dequeue(reg, mem)
     load_process(reg, mem)
-
-def padded_hex(n):
-    return hex(n)[2:].zfill(6) if n != 0xFFFF else "------"
-
-def hexdump(src):
-    for i in range(0, len(src), 8):
-        print("\033[7m" if i % 32 == 0 else "\033[0m", end="")
-        print(f"{padded_hex(i)}-{padded_hex(i+7)}:", " ".join(padded_hex(src[i]) for i in range(i, i+8)))
-    print("\033[0m", end="")
