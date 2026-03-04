@@ -1,8 +1,10 @@
 """
-Simple 24-bit CPU. All arithmetic inaccurately take one cycle to complete.
+Simple 24-bit CPU. Named after it's 3 byte long CPU instructions.
 
-Raises VakueError on unknown opcode. Raises Exception on inaccessible memory
-or register access.
+- only works on 3 byte-long word memory
+- all arithmetic instructions inaccurately take one cycle to complete
+- raises VakueError on unknown opcode. Raises Exception on inaccessible memory
+  or register access.
 """
 
 
@@ -15,6 +17,7 @@ C_ACC = 4
 C_R0 = 5
 C_R1 = 6
 C_R2 = 7
+
 
 # Instruction set
 # 00000000 00000000 00000000
@@ -67,6 +70,7 @@ C_R2 = 7
 # 48 divi: reg1 / immediate
 # 49 modi: reg1 % immediate
 # 4a gi: reg1 > immediate
+
 
 def init_cpu():
     return [0] * 8

@@ -1,7 +1,8 @@
 """
-First Come, First Serve scheduler. Smallest unit is processes, not threads.
+First Come, First Serve scheduler.
 
-All processes get one instruction on the CPU before being context switched out.
+- smallest unit is processes, not threads
+- all processes get one instruction call before being context switched out
 """
 
 

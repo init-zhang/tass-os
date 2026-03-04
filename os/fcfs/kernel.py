@@ -1,3 +1,14 @@
+"""
+OS kernel to demostrate the First Come, First Serve scheduler.
+
+CPU: 3B
+Memory size: 768B (256 * 3B)
+
+Notes:
+- word size is 3B rather than 1
+"""
+
+
 # Memory
 # 0-31 OS and scheduler
 # 15 Current PID
@@ -53,18 +64,13 @@ PC_LENGTH = 16
 # |24|Inst|Inst|Inst|Inst|Inst|Inst|Inst|Inst|
 # +--+----+----+----+----+----+----+----+----+
 
-"""
-256 long integer array used to simulate memory.
-
-The OS variables `M_PROCESS_LIST`, `M_QUEUE_TAIL`, and `M_QUEUE_HEAD` are set
-here, though should be moved to OS code.
-"""
-
-
-from constants import *
 
 def init_memory():
-    memory = [0xFFFF] * 256
+    """
+    256 long integer array used to simulate memory. Each word is 3 bytes long
+    due to 3B CPU used.
+    """
+    memory = [0xFFFFFF] * 256
     memory[M_PROCESS_LIST] = 0
     memory[M_QUEUE_TAIL] = M_QUEUE_BASE
     memory[M_QUEUE_HEAD] = M_QUEUE_BASE
