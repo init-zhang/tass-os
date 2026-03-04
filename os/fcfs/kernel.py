@@ -9,6 +9,10 @@ Notes:
 """
 
 
+from cpu.cpu3b import cpu3b
+from scheduler.fcfs import *
+
+
 # Memory
 # 0-31 OS and scheduler
 # 15 Current PID
@@ -75,3 +79,9 @@ def init_memory():
     memory[M_QUEUE_TAIL] = M_QUEUE_BASE
     memory[M_QUEUE_HEAD] = M_QUEUE_BASE
     return memory
+
+
+memory = init_memory()
+registers = cpu3b.init_cpu()
+
+print(memory, registers)
