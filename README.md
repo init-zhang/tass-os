@@ -26,3 +26,4 @@ First Come, First Serve scheduler.
 
 - smallest unit is processes, not threads
 - all processes get one instruction call before being context switched out
+- fixed partition memory

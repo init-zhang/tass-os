@@ -1,11 +1,12 @@
 """
-OS kernel to demostrate the First Come, First Serve scheduler.
+OS kernel to demonstrate the First Come, First Serve scheduler.
 
 CPU: 3B
 Memory size: 768B (256 * 3B)
 
 Notes:
 - word size is 3B rather than 1
+- fixed partition memory
 """
 
 
