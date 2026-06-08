@@ -1,5 +1,3 @@
-# Fibonacci program for 3b CPU
-
 wri $r2 1  # i
 wri $r0 1  # n-2
 wri $r1 1  # n-1

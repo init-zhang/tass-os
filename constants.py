@@ -1,18 +1,12 @@
-"""
-OS kernel to demonstrate the First Come, First Serve scheduler.
-
-CPU: 3B
-Memory size: 768B (256 * 3B)
-
-Notes:
-- word size is 3B rather than 1
-- fixed partition memory
-"""
-
-
-from cpu.cpu3b import cpu3b
-from scheduler.fcfs import *
-
+# CPU registers
+C_PC = 0
+C_IR = 1
+C_MAR = 2
+C_MDR = 3
+C_ACC = 4
+C_R0 = 5
+C_R1 = 6
+C_R2 = 7
 
 # Memory
 # 0-31 OS and scheduler
@@ -50,8 +44,6 @@ PCB_ACC = 2
 PCB_R0 = 3
 PCB_R1 = 4
 PCB_R2 = 5
-# State of process, 1 - alive, 0 - dead
-PCB_S = 6
 # 8-15 words of data
 PD_BASE = 8
 PD_LENGTH = 8
@@ -62,7 +54,7 @@ PC_LENGTH = 16
 # +--+----+----+----+----+----+----+----+----+
 # |- |0   |1   |2   |3   |4   |5   |6   |7   |
 # +--+----+----+----+----+----+----+----+----+
-# |0 |PID |PC  |ACC |r0  |R1  |R2  |S   |    |
+# |0 |PID |PC  |ACC |r0  |R1  |R2  |    |    |
 # +--+----+----+----+----+----+----+----+----+
 # |8 |Data|Data|Data|Data|Data|Data|Data|Data|
 # +--+----+----+----+----+----+----+----+----+
@@ -70,21 +62,3 @@ PC_LENGTH = 16
 # +--+----+----+----+----+----+----+----+----+
 # |24|Inst|Inst|Inst|Inst|Inst|Inst|Inst|Inst|
 # +--+----+----+----+----+----+----+----+----+
-
-
-def init_memory():
-    """
-    256 long integer array used to simulate memory. Each word is 3 bytes long
-    due to 3B CPU used.
-    """
-    memory = [0xFFFFFF] * 256
-    memory[M_PROCESS_LIST] = 0
-    memory[M_QUEUE_TAIL] = M_QUEUE_BASE
-    memory[M_QUEUE_HEAD] = M_QUEUE_BASE
-    return memory
-
-
-memory = init_memory()
-registers = cpu3b.init_cpu()
-
-print(memory, registers)
