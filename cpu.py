@@ -1,5 +1,5 @@
 """
-Simple 24-bit CPU. All arithmetic inaccurately take one cycle to complete.
+Simple 16-bit CPU. All arithmetic inaccurately take one cycle to complete.
 
 Raises VakueError on unknown opcode. Raises Exception on inaccessible memory
 or register access.
@@ -10,15 +10,53 @@ from constants import *
 
 
 # Instruction set
-# 00000000 00000000 00000000
-# opcode   r1       r2/immediate
-#
-# Valid registers: $ac, $r0, $r1, $r2
+# 0000   00 00 00000000
+# opcode rA rB Imm
+
+# Valid registers:
+# 0 $r0
+# 1 $r1
+# 2 $r2
+# 3 $acc
+
+# opcodes:
+#  0 NOP
+#  1 LOAD value in memory address into rA
+#         If Imm is empty, use value in rB as memory address,
+#         otherwise use bits of rB + Imm as address.
+#  2 STORE value in rA into memory address
+#          If Imm is empty, use value in rB as memory address,
+#          otherwise use bits of rB + Imm as address.
+#  3 MOV value in rB or Imm into rA
+#        If Imm is empty, move value of rB into rA,
+#        otherwise use bits of rB + Imm as a constant.
+#  4 ADD rA + rB (when Imm empty) or rA + constant into $acc
+#        Constant is the bits of rB + Imm.
+#  5 SUB rA - rB (when Imm empty) or rA - constant into $acc
+#        Constant is the bits of rB + Imm.
+#  5 AND rA & rB (when Imm empty) or rA & constant into $acc
+#        Constant is the bits of rB + Imm.
+#  6 OR rA | rB (when Imm empty) or rA | constant into $acc
+#       Constant is the bits of rB + Imm.
+#  7 SHIFT rA >> rB (when Imm empty) or rA >> constant into $acc
+#          Constant is the bits of rB + Imm.
+#  8 NOT store the inverse of the value in rB into rA
+#  9 LT rA < rB (when Imm empty) or rA < constant into $acc
+#       Constant is the bits of rB + Imm.
+# 10 EQ rA == rB (when Imm empty) or rA == constant into $acc
+#       Constant is the bits of rB + Imm.
+# 11 JUMP
+# 12 BRANCH
+# 13 
+# 14 
+# 15 
+
+
 #
 # Categories
-# 0X control
-# 1X registers and memory
-# 2X ALU
+# 5X control
+# 5X registers and memory
+# 5X ALU
 #
 # Control
 # 00 nop
