@@ -19,85 +19,28 @@ from constants import *
 # 2 $r2
 # 3 $acc
 
+# [rA] refers to value inside register rA.
+# [rB] refers to value inside register rB.
+# [constant] refers to bits made of rB + Imm, only when Imm is not 0.
+
 # opcodes:
 #  0 NOP
-#  1 LOAD value in memory address into rA
-#         If Imm is empty, use value in rB as memory address,
-#         otherwise use bits of rB + Imm as address.
-#  2 STORE value in rA into memory address
-#          If Imm is empty, use value in rB as memory address,
-#          otherwise use bits of rB + Imm as address.
-#  3 MOV value in rB or Imm into rA
-#        If Imm is empty, move value of rB into rA,
-#        otherwise use bits of rB + Imm as a constant.
-#  4 ADD rA + rB (when Imm empty) or rA + constant into $acc
-#        Constant is the bits of rB + Imm.
-#  5 SUB rA - rB (when Imm empty) or rA - constant into $acc
-#        Constant is the bits of rB + Imm.
-#  5 AND rA & rB (when Imm empty) or rA & constant into $acc
-#        Constant is the bits of rB + Imm.
-#  6 OR rA | rB (when Imm empty) or rA | constant into $acc
-#       Constant is the bits of rB + Imm.
-#  7 SHIFT rA >> rB (when Imm empty) or rA >> constant into $acc
-#          Constant is the bits of rB + Imm.
-#  8 NOT store the inverse of the value in rB into rA
-#  9 LT rA < rB (when Imm empty) or rA < constant into $acc
-#       Constant is the bits of rB + Imm.
-# 10 EQ rA == rB (when Imm empty) or rA == constant into $acc
-#       Constant is the bits of rB + Imm.
-# 11 JUMP
-# 12 BRANCH
-# 13 
-# 14 
-# 15 
+#  1 HALT
+#  2 LOAD value inside memory address at [rB] or [constant] into rA.
+#  3 STORE value in rA into memory address at [rB] or [constant].
+#  4 MOV [rB] or [constant] into rA.
+#  5 ADD [rA] + [rB] or [constant] into $acc.
+#  6 SUB [rA] - [rB] or [constant] into $acc.
+#  7 AND [rA] & [rB] or [constant] into $acc.
+#  8 OR [rA] | [rB] or [constant] into $acc.
+#  9 SHIFT [rA] >> [rB] or [constant] into $acc.
+# 10 NOT inverse of [rB] or [constant] into rA.
+# 11 LT store 1 into $acc if [rA] < [rb] or [constant], otherwise 0.
+# 12 EQ store 1 into $acc if [rA] = [rb] or [constant], otherwise 0.
+# 13 JUMP to [rA] or [constant].
+# 14 BRANCH to [rB] or [constant] if [rA] = 1.
+# 15 RESERVED
 
-
-#
-# Categories
-# 5X control
-# 5X registers and memory
-# 5X ALU
-#
-# Control
-# 00 nop
-# 01 die
-# 02 j:   reg1
-# 03 je:  reg1, reg2 = 0?
-# 04 jne: reg1, reg2 != 0?
-#
-# registers and memory
-# 10 wr:  reg1 = reg2
-# 11 wri: reg = immediate
-# 12 rm:  reg = mem
-# 13 wm:  mem = reg
-# 14 wmi: mem = immediate
-#
-# ALU, all results are stored in ALU
-# 30 add: reg1 + reg2
-# 31 sub: reg1 - reg2
-# 32 mul: reg1 * reg2
-# 33 and: reg1 & reg2
-# 34 or:  reg1 | reg2
-# 35 xor: reg1 ^ reg2
-# 36 sl:  reg1 << reg2
-# 37 sr:  reg1 >> reg2
-# 38 div: reg1 / reg2
-# 39 mod: reg1 % reg2
-# 3a g: reg1 > reg2
-# 3b not: !reg
-#
-# Immediate ALU, all results are stored in ALU
-# 40 addi: reg1 + immediate
-# 41 subi: reg1 - immediate
-# 42 muli: reg1 * immediate
-# 43 andi: reg1 & immediate
-# 44 ori:  reg1 | immediate
-# 45 xori: reg1 ^ immediate
-# 46 sli:  reg1 << immediate
-# 47 sri:  reg1 >> immediate
-# 48 divi: reg1 / immediate
-# 49 modi: reg1 % immediate
-# 4a gi: reg1 > immediate
 
 def init_cpu():
     return [0] * 8
